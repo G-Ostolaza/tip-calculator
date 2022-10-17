@@ -6,7 +6,7 @@ subprocess.check_call([sys.executable, '-m', 'pip', 'install',
 
 from colorama import Fore, Back, Style
 
-# While loop to start Tip Calulator if calculator set to 'y'
+# While loop to start Tip Calulator if calculator_start is set to 'y'
 calculator_start = 'y'
 while calculator_start == 'y':
     # # # Message displayed to user
@@ -17,6 +17,7 @@ while calculator_start == 'y':
         # # Prompt asking the user to enter their bill amount
         try:
             user_input= float(input(Back.YELLOW + 'Enter your bill amount in dollars: '))
+            print(f'Your check amount is ${user_input}')
             return user_input
         # catch if input is not a number, display prompt again
         except ValueError:
@@ -27,7 +28,7 @@ while calculator_start == 'y':
     def number_of_people():
         # # prompt asking the user how many individuals will be splitting the bill
         try:
-            person_count= int(input(Fore.GREEN + 'How many people to split the billamount: '))
+            person_count= int(input(Fore.GREEN + 'How many people to split the bill amount: '))
             return person_count
         # catch if input is not a number, display prompt again
         except ValueError:
@@ -40,8 +41,14 @@ while calculator_start == 'y':
         # prompt asking the user what percent would they like to leave as a tip
         try:
             print(Fore.RED + 'PLEASE LEAVE OFF THE PERCENT % SIGN')
-            tip= float(input(Fore.GREEN + '\nwhat percentage of tip would you like to leave? 5, 10, 12 or 15 or any other amount you like?\n'))
-            return tip
+            tip= float(input(Fore.GREEN + '\nwhat tip percentage would you like to leave? 5, 10, 12 or 15 or any other amount you like?\n'))
+            additional_tip_prompt= input(Fore.GREEN + '\nWould you like to leave an additional tip? Please enter y for YES and n for NO\n')
+            if additional_tip_prompt == 'y':
+                additional_tip= float(input(Fore.GREEN + '\nwhat tip percentage would you like to leave? 5, 10, 12 or 15 or any other amount you like?\n'))
+                # print('this is additonal', tip + additional_tip_prompt)
+                return tip + additional_tip
+            else:
+                return tip
         # catch if input is not a number, display prompt again
         except ValueError:
             print('You did not enter a valid TIP PERCENTAGE!', 'please try again and enter a '+ Fore.RED + 'NUMBER!')
@@ -60,15 +67,15 @@ while calculator_start == 'y':
         # conditional to check if bill is for 1 person
         # "{:,}".format() // is to format for thousands place with commas
         if people == 1:
-            print(f' people Total Bill: ${"{:.2f}".format(total_bill)}')
+            print(f'Total Bill: ${round((total_bill),2)}')
         else:
             if per_person_amt % 1 == 0:
-                print(f'Total Bill: ${ "{:,}".format(total_bill)}')
-                print(f'Each person should pay: ${ "{:,}".format(per_person_amt)}')
+                print(f'Total Bill: ${round(total_bill,2)}')
+                print(f'Each person should pay: ${"{:,}".format(per_person_amt) }')
         # conditional to check if amount is float
             elif isinstance(per_person_amt, float):
-                print(f'Total Bill: ${"{:,}".format(total_bill)}')
-                print(f"Each person should pay {'%.2f' % per_person_amt}")
+                print(f'Total Bill: ${round((total_bill),2)}')
+                print(f'Each person should pay: ${round((per_person_amt),2)}')
     tip_calculator()
     calculator_start= input('Would you like to calculate another bill? Choose y for YES and n for NO : ').lower()
 
