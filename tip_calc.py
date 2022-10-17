@@ -7,7 +7,7 @@ subprocess.check_call([sys.executable, '-m', 'pip', 'install',
 from colorama import Fore, Back, Style
 
 # While loop to start Tip Calulator if calculator_start is set to 'y'
-calculator_start = 'y'
+calculator_start = 'y' or 'yes'
 while calculator_start == 'y':
     # # # Message displayed to user
     print('Welcome to your Tip calculator')
@@ -43,11 +43,12 @@ while calculator_start == 'y':
             print(Fore.RED + 'PLEASE LEAVE OFF THE PERCENT % SIGN')
             tip= float(input(Fore.GREEN + '\nwhat tip percentage would you like to leave? 5, 10, 12 or 15 or any other amount you like?\n'))
             additional_tip_prompt= input(Fore.GREEN + '\nWould you like to leave an additional tip? Please enter y for YES and n for NO\n')
-            if additional_tip_prompt == 'y':
+            # Conditional to check for additional tip
+            if additional_tip_prompt == 'y' or additional_tip_prompt == 'yes':
                 additional_tip= float(input(Fore.GREEN + '\nwhat tip percentage would you like to leave? 5, 10, 12 or 15 or any other amount you like?\n'))
                 # print('this is additonal', tip + additional_tip_prompt)
                 return tip + additional_tip
-            else:
+            elif additional_tip_prompt == 'n' or additional_tip_prompt == 'no':
                 return tip
         # catch if input is not a number, display prompt again
         except ValueError:

@@ -17,5 +17,3 @@ class TestTipCalculator(TestCase):
         num = bill_amount()
 
         self.assertEqual(15.0, num)
-        # bill_amount()
-        # self.assertEqual("Enter your bill amount in dollars: 15.0\n", mock_stdout.getvalue())
